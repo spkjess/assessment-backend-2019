@@ -5,7 +5,9 @@ The server uses `Express` and `apollo-server-express` to expose a GraphQL interf
 
 ## Goal
 
-Currently, if you run `npm start`, you will see an error since there are no definitions for Apollo Server. Your task is to create these definitions according to the requirements in [Test assignment](#test-assignment) and send the link to your fork of this repo once you're done.
+Currently, if you run `npm start`, you will see an error since there are no definitions for Apollo Server. Your task is to create these definitions according to the requirements in [Test assignment](#test-assignment).
+
+When you are done with the test, please send a link to your repo to your recruiter.  Thank you for your time and interest in Slate!
 
 ## Test assignment
 
