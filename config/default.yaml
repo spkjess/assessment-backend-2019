@@ -3,4 +3,4 @@ server:
   host: localhost
 
 db:
-  uri: 'mongodb://localhost:27020/incident-management'
+  uri: 'mongodb://mongodb:27017/incident-management'

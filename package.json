@@ -3,7 +3,6 @@
   "version": "0.0.1",
   "main": "src/server.js",
   "scripts": {
-    "prestart": "docker-compose up -d",
     "start": "nodemon src/server.js",
     "test": "jest",
     "lint": "eslint --ignore-path .gitignore . --ext .js"

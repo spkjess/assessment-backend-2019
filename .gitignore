@@ -77,3 +77,5 @@ typings/
 # Editor/IDE configuration
 .idea
 .vscode
+
+.config
