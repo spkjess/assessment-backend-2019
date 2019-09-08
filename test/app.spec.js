@@ -37,10 +37,25 @@ export const assignIncident = async variables =>
 export const acknowledgeIncident = async variables =>
   await axios.post(API_URL, {
     query: `
-      mutation AcknowledgeIncident {
-        acknowledgeIncident(
+      mutation UpdateIncidentStatus {
+        updateIncidentStatus(
           title:"title1",
           status: "Acknowledged", 
+        ) {
+          status
+        }
+      }
+    `,
+    variables,
+  });
+
+export const resolveIncident = async variables =>
+  await axios.post(API_URL, {
+    query: `
+      mutation UpdateIncidentStatus {
+        updateIncidentStatus(
+          title:"title1",
+          status: "Resolved", 
         ) {
           status
         }

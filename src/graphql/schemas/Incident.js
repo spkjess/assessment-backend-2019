@@ -16,7 +16,7 @@ export default gql`
 			title: String!
 			assignee: String!
 		): Incident!
-		acknowledgeIncident(
+		updateIncidentStatus(
 			title: String!
 			status: String!
 		): Incident!

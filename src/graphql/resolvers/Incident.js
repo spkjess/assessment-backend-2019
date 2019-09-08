@@ -32,7 +32,7 @@ export default {
       );
       return incident;
     },
-    acknowledgeIncident: async (
+    updateIncidentStatus: async (
       parent,
       {
         title,
