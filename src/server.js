@@ -8,6 +8,7 @@ const { seedUsers } = require('./db-init')
 
 import Incident from './graphql/schemas/Incident';
 import incidentResolver from './graphql/resolvers/Incident';
+import models from './models/index';
 
 mongoose.connect(config.get('db.uri'), { useNewUrlParser: true })
   .then(async () => {
@@ -15,7 +16,11 @@ mongoose.connect(config.get('db.uri'), { useNewUrlParser: true })
 
     await seedUsers()
 
-    const server = new ApolloServer({ typeDefs: [Incident], resolvers: [incidentResolver] });
+    const server = new ApolloServer({
+      typeDefs: [Incident],
+      resolvers: [incidentResolver],
+      context: { models }
+    });
 
     const app = express()
     server.applyMiddleware({ app })
