@@ -26,7 +26,7 @@ export default {
       },
       { models },
     ) => {
-      const incident = await models.Incident.findOneAndUpdate(
+      const incident = await models.Incident.updateOne(
         { title },
         { assignee }
       );
@@ -40,9 +40,21 @@ export default {
       },
       { models },
     ) => {
-      const incident = await models.Incident.findOneAndUpdate(
+      const incident = await models.Incident.updateOne(
         { title },
         { status }
+      );
+      return incident;
+    },
+    deleteIncident: async (
+      parent,
+      {
+        title
+      },
+      { models },
+    ) => {
+      const incident = await models.Incident.remove(
+        { title }
       );
       return incident;
     }

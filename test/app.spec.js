@@ -7,9 +7,9 @@ export const createIncident = async variables =>
     query: `
       mutation CreateIncident {
         createIncident(
-          title:"title1",
+          title: "title1",
           description:"description1", 
-          assignee: "user", 
+          assignee: "user1", 
           status: "Created" 
         ) {
           title
@@ -24,10 +24,10 @@ export const assignIncident = async variables =>
     query: `
       mutation AssignIncident {
         assignIncident(
-          title:"title1",
+          title: "title1",
           assignee: "user2", 
         ) {
-          assignee
+          status
         }
       }
     `,
@@ -39,7 +39,7 @@ export const acknowledgeIncident = async variables =>
     query: `
       mutation UpdateIncidentStatus {
         updateIncidentStatus(
-          title:"title1",
+          title: "title1",
           status: "Acknowledged", 
         ) {
           status
@@ -54,7 +54,7 @@ export const resolveIncident = async variables =>
     query: `
       mutation UpdateIncidentStatus {
         updateIncidentStatus(
-          title:"title1",
+          title: "title1",
           status: "Resolved", 
         ) {
           status
@@ -63,3 +63,18 @@ export const resolveIncident = async variables =>
     `,
     variables,
   });
+
+export const deleteIncident = async variables =>
+  await axios.post(API_URL, {
+    query: `
+      mutation DeleteIncident {
+        deleteIncident(
+          title: "title1"
+        ) {
+          status
+        }
+      }
+    `,
+    variables,
+  });
+

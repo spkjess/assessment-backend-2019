@@ -20,6 +20,9 @@ export default gql`
 			title: String!
 			status: String!
 		): Incident!
+		deleteIncident(
+			title: String!
+		): Incident!
 	}
 
 	type Incident {
