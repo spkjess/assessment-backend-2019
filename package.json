@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "main": "src/server.js",
   "scripts": {
-    "start": "nodemon src/server.js",
+    "start": "nodemon  --exec babel-node src/server.js",
     "test": "jest",
     "lint": "eslint --ignore-path .gitignore . --ext .js"
   },
@@ -19,6 +19,9 @@
     "qs-middleware": "^1.0.3"
   },
   "devDependencies": {
+    "@babel/core": "^7.6.0",
+    "@babel/node": "^7.6.1",
+    "@babel/preset-env": "^7.6.0",
     "eslint": "^6.3.0",
     "jest": "^24.8.0"
   }

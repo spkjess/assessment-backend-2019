@@ -1,10 +1,13 @@
 const config = require('config')
 const express = require('express')
 const mongoose = require('mongoose')
-const { ApolloServer, gql } = require('apollo-server-express')
+const { ApolloServer } = require('apollo-server-express')
 mongoose.Promise = global.Promise
 
 const { seedUsers } = require('./db-init')
+
+import Incident from './graphql/schemas/Incident';
+import incidentResolver from './graphql/resolvers/Incident';
 
 mongoose.connect(config.get('db.uri'), { useNewUrlParser: true })
   .then(async () => {
@@ -12,19 +15,7 @@ mongoose.connect(config.get('db.uri'), { useNewUrlParser: true })
 
     await seedUsers()
 
-    const typeDefs = gql`
-      type Query {
-        hello: String
-      }
-    `;
-
-    const resolvers = {
-      Query: {
-        hello: () => 'Hello world!'
-      },
-    };
-
-    const server = new ApolloServer({ typeDefs, resolvers });
+    const server = new ApolloServer({ typeDefs: [Incident], resolvers: [incidentResolver] });
 
     const app = express()
     server.applyMiddleware({ app })
