@@ -1,10 +1,14 @@
-const config           = require('config')
-const express          = require('express')
-const mongoose         = require('mongoose')
+const config = require('config')
+const express = require('express')
+const mongoose = require('mongoose')
 const { ApolloServer } = require('apollo-server-express')
-mongoose.Promise       = global.Promise
+mongoose.Promise = global.Promise
 
 const { seedUsers } = require('./db-init')
+
+import Incident from './graphql/schemas/Incident';
+import incidentResolver from './graphql/resolvers/Incident';
+import models from './models/index';
 
 mongoose.connect(config.get('db.uri'), { useNewUrlParser: true })
   .then(async () => {
@@ -12,8 +16,11 @@ mongoose.connect(config.get('db.uri'), { useNewUrlParser: true })
 
     await seedUsers()
 
-    // TODO: Initialize Apollo with the required arguments as you see fit
-    const server = new ApolloServer({})
+    const server = new ApolloServer({
+      typeDefs: [Incident],
+      resolvers: [incidentResolver],
+      context: { models }
+    });
 
     const app = express()
     server.applyMiddleware({ app })
@@ -21,7 +28,7 @@ mongoose.connect(config.get('db.uri'), { useNewUrlParser: true })
     const { host, port } = config.get('server')
 
     app.listen({ port }, () => {
-      console.log(`Server ready at http://${ host }:${ port }${ server.graphqlPath }`)
+      console.log(`Server ready at http://${host}:${port}${server.graphqlPath}`)
     })
   })
   .catch((error) => {
