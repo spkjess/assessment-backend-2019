@@ -5,7 +5,8 @@
   "scripts": {
     "prestart": "docker-compose up -d",
     "start": "nodemon src/server.js",
-    "test": "jest"
+    "test": "jest",
+    "lint": "eslint --ignore-path .gitignore . --ext .js"
   },
   "license": "ISC",
   "dependencies": {
@@ -19,6 +20,7 @@
     "qs-middleware": "^1.0.3"
   },
   "devDependencies": {
+    "eslint": "^6.3.0",
     "jest": "^24.8.0"
   }
 }
