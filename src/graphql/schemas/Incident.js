@@ -2,7 +2,8 @@ import { gql } from 'apollo-server-express';
 
 export default gql`
 	type Query {
-		title: String!
+		incidents: [Incident!]
+		incident(title: String!): Incident
 	}
 	
 	type Mutation {

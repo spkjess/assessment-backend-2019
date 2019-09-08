@@ -1,4 +1,12 @@
 export default {
+  Query: {
+    incidents: async (parent, args, { models }) => {
+      return await models.Incident.find();
+    },
+    incident: async (parent, { title }, { models }) => {
+      return await models.Incident.findOne({ title });
+    }
+  },
   Mutation: {
     createIncident: async (
       parent,

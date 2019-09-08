@@ -78,3 +78,33 @@ export const deleteIncident = async variables =>
     variables,
   });
 
+export const readIncident = async variables =>
+  await axios.post(API_URL, {
+    query: `
+      query ($title: "title1") {
+        incident(title: $title) {
+          title,
+          description,
+          assignee,
+          status
+        }
+      }
+    `,
+    variables,
+  });
+
+export const indexIncidents = async variables =>
+  await axios.post(API_URL, {
+    query: `
+      {
+        incidents {
+          title,
+          description,
+          assignee,
+          status
+        }
+      }
+    `,
+    variables,
+  });
+
