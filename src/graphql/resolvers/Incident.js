@@ -16,7 +16,6 @@ export default {
         assignee,
         status,
       });
-
       return incident;
     },
     assignIncident: async (
@@ -31,8 +30,21 @@ export default {
         { title },
         { assignee }
       );
-
+      return incident;
+    },
+    acknowledgeIncident: async (
+      parent,
+      {
+        title,
+        status
+      },
+      { models },
+    ) => {
+      const incident = await models.Incident.findOneAndUpdate(
+        { title },
+        { status }
+      );
       return incident;
     }
-  }
+  },
 }
