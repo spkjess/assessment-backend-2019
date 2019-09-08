@@ -12,6 +12,11 @@ export default gql`
 			assignee: String!
 			status: String
 		): Incident!
+
+		assignIncident(
+			title: String!
+			assignee: String!
+		): Incident!
 	}
 
 	type Incident {

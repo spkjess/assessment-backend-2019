@@ -18,6 +18,21 @@ export default {
       });
 
       return incident;
+    },
+    assignIncident: async (
+      parent,
+      {
+        title,
+        assignee
+      },
+      { models },
+    ) => {
+      const incident = await models.Incident.findOneAndUpdate(
+        { title },
+        { assignee }
+      );
+
+      return incident;
     }
   }
 }
