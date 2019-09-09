@@ -101,12 +101,13 @@ export const indexIncidents = async variables =>
   await axios.post(API_URL, {
     query: `
       {
-        incidents {
-          title,
-          description,
-          assignee,
-          status,
+        incidents(sortBy: "createdAt") {
+          title
+          description
+          assignee
+          status
           createdAt
+          updatedAt
         }
       }
     `,

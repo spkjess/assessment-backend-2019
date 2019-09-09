@@ -2,8 +2,14 @@ import { UserInputError } from 'apollo-server';
 
 export default {
   Query: {
-    incidents: async (parent, args, { models }) => {
-      return await models.Incident.find();
+    incidents: async (parent, { sortBy }, { models }) => {
+      const sort = `{ ${sortBy}: -1 }`;
+
+      return await models.Incident.find(
+        {},
+        null,
+        { sort },
+      );
     },
     incident: async (parent, { title }, { models }) => {
       return await models.Incident.findOne({ title });

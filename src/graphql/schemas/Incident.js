@@ -2,7 +2,7 @@ import { gql } from 'apollo-server-express';
 
 export default gql`
 	type Query {
-		incidents: [Incident!]
+		incidents(sortBy: String): [Incident!]
 		incident(title: String!): Incident
 	}
 	
@@ -32,5 +32,6 @@ export default gql`
 		assignee: String!
 		status: String
 		createdAt: Date
+		updatedAt: Date 
 	}
 `;
