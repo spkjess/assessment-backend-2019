@@ -1,15 +1,46 @@
 import { UserInputError } from 'apollo-server';
 
+const toCursorHash = string => Buffer.from(string).toString('base64');
+
+const fromCursorHash = string =>
+  Buffer.from(string, 'base64').toString('ascii');
+
 export default {
   Query: {
-    incidents: async (parent, { sortBy }, { models }) => {
-      const sort = `{ ${sortBy}: -1 }`;
+    incidents: async (parent, { sortBy, cursor, limit }, { models }) => {
 
-      return await models.Incident.find(
-        {},
+      const cursorOptions = cursor
+        ? {
+          createdAt: {
+            $lt: fromCursorHash(cursor),
+          },
+        }
+        : {};
+      const query = {
+        sort: {},
+        limit: limit + 1,
+      };
+
+      query.sort[sortBy] = -1;
+
+      const incidents = await models.Incident.find(
+        cursorOptions,
         null,
-        { sort },
+        query
       );
+
+      const hasNextPage = incidents.length > limit;
+      const edges = hasNextPage ? incidents.slice(0, -1) : incidents;
+
+      return {
+        edges,
+        pageInfo: {
+          hasNextPage,
+          endCursor: toCursorHash(
+            edges[edges.length - 1].createdAt.toString(),
+          ),
+        },
+      };
     },
     incident: async (parent, { title }, { models }) => {
       return await models.Incident.findOne({ title });

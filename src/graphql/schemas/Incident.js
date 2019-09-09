@@ -2,7 +2,7 @@ import { gql } from 'apollo-server-express';
 
 export default gql`
 	type Query {
-		incidents(sortBy: String): [Incident!]
+		incidents(sortBy: String, cursor: String, limit: Int): IncidentConnection!
 		incident(title: String!): Incident
 	}
 	
@@ -26,6 +26,16 @@ export default gql`
 		): Incident!
 	}
 
+	type IncidentConnection {
+    edges: [Incident!]!
+    pageInfo: PageInfo!
+	}
+
+	type PageInfo {
+		hasNextPage: Boolean!
+    endCursor: String!
+	}
+	
 	type Incident {
 		title: String!
 		description: String
