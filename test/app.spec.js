@@ -9,10 +9,13 @@ export const createIncident = async variables =>
         createIncident(
           title: "title1",
           description:"description1", 
-          assignee: "user1", 
+          assignee: "John Doe",
           status: "Created" 
         ) {
           title
+          description
+          assignee
+          status
         }
       }
     `,
@@ -25,9 +28,10 @@ export const assignIncident = async variables =>
       mutation AssignIncident {
         assignIncident(
           title: "title1",
-          assignee: "user2", 
+          assignee: "John Doe",
         ) {
-          status
+          title
+          assignee
         }
       }
     `,
@@ -71,7 +75,7 @@ export const deleteIncident = async variables =>
         deleteIncident(
           title: "title1"
         ) {
-          status
+          title
         }
       }
     `,
@@ -81,8 +85,8 @@ export const deleteIncident = async variables =>
 export const readIncident = async variables =>
   await axios.post(API_URL, {
     query: `
-      query ($title: "title1") {
-        incident(title: $title) {
+      {
+        incident(title: "title1") {
           title,
           description,
           assignee,
@@ -97,11 +101,13 @@ export const indexIncidents = async variables =>
   await axios.post(API_URL, {
     query: `
       {
-        incidents {
-          title,
-          description,
-          assignee,
+        incidents(sortBy: "createdAt") {
+          title
+          description
+          assignee
           status
+          createdAt
+          updatedAt
         }
       }
     `,

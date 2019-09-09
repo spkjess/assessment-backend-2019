@@ -6,7 +6,7 @@ mongoose.Promise = global.Promise
 
 const { seedUsers } = require('./db-init')
 
-import Incident from './graphql/schemas/Incident';
+import typeDefs from './graphql/schemas/index';
 import incidentResolver from './graphql/resolvers/Incident';
 import models from './models/index';
 
@@ -17,7 +17,7 @@ mongoose.connect(config.get('db.uri'), { useNewUrlParser: true })
     await seedUsers()
 
     const server = new ApolloServer({
-      typeDefs: [Incident],
+      typeDefs,
       resolvers: [incidentResolver],
       context: { models }
     });
