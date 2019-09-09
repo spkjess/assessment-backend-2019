@@ -101,7 +101,7 @@ export const indexIncidents = async variables =>
   await axios.post(API_URL, {
     query: `
       {
-        incidents(limit: 3) {
+        incidents(limit: 1) {
           edges {
             title
             description
