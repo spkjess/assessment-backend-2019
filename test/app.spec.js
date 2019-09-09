@@ -27,7 +27,8 @@ export const assignIncident = async variables =>
           title: "title1",
           assignee: "user2", 
         ) {
-          status
+          title
+          assignee
         }
       }
     `,
@@ -71,7 +72,7 @@ export const deleteIncident = async variables =>
         deleteIncident(
           title: "title1"
         ) {
-          status
+          title
         }
       }
     `,
@@ -81,8 +82,8 @@ export const deleteIncident = async variables =>
 export const readIncident = async variables =>
   await axios.post(API_URL, {
     query: `
-      query ($title: "title1") {
-        incident(title: $title) {
+      {
+        incident(title: "title1") {
           title,
           description,
           assignee,

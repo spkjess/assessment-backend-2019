@@ -10,21 +10,11 @@ export default {
   Mutation: {
     createIncident: async (
       parent,
-      {
-        title,
-        description,
-        assignee,
-        status
-      },
+      args,
       { models },
     ) => {
-      const incident = await models.Incident.create({
-        title,
-        description,
-        assignee,
-        status,
-      });
-      return incident;
+      await models.Incident.create(args);
+      return args;
     },
     assignIncident: async (
       parent,
@@ -34,11 +24,14 @@ export default {
       },
       { models },
     ) => {
-      const incident = await models.Incident.updateOne(
+      await models.Incident.updateOne(
         { title },
         { assignee }
       );
-      return incident;
+      return {
+        title,
+        assignee
+      };
     },
     updateIncidentStatus: async (
       parent,
@@ -48,11 +41,14 @@ export default {
       },
       { models },
     ) => {
-      const incident = await models.Incident.updateOne(
+      await models.Incident.updateOne(
         { title },
         { status }
       );
-      return incident;
+      return {
+        title,
+        status
+      };
     },
     deleteIncident: async (
       parent,
@@ -61,10 +57,10 @@ export default {
       },
       { models },
     ) => {
-      const incident = await models.Incident.remove(
+      await models.Incident.remove(
         { title }
       );
-      return incident;
+      return { title };
     }
   },
 }
