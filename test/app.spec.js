@@ -105,7 +105,8 @@ export const indexIncidents = async variables =>
           title,
           description,
           assignee,
-          status
+          status,
+          createdAt
         }
       }
     `,

@@ -31,5 +31,6 @@ export default gql`
 		description: String
 		assignee: String!
 		status: String
+		createdAt: Date
 	}
 `;
