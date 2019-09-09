@@ -9,10 +9,13 @@ export const createIncident = async variables =>
         createIncident(
           title: "title1",
           description:"description1", 
-          assignee: "user1", 
+          assignee: "John Doe",
           status: "Created" 
         ) {
           title
+          description
+          assignee
+          status
         }
       }
     `,
@@ -25,7 +28,7 @@ export const assignIncident = async variables =>
       mutation AssignIncident {
         assignIncident(
           title: "title1",
-          assignee: "user2", 
+          assignee: "John Doe",
         ) {
           title
           assignee

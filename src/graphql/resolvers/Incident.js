@@ -1,3 +1,5 @@
+import { UserInputError } from 'apollo-server';
+
 export default {
   Query: {
     incidents: async (parent, args, { models }) => {
@@ -13,6 +15,14 @@ export default {
       args,
       { models },
     ) => {
+      const user = await models.User.findOne({ name: args.assignee });
+
+      if (user.role !== "Engineer") {
+        throw new UserInputError(
+          'Incident should be assigned to an Engineer.',
+        );
+      }
+
       await models.Incident.create(args);
       return args;
     },
